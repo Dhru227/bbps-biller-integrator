@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="BillerActivationCheckRequest" type="bbps:ActivationCheckRequest">
+		<xs:annotation>
+			<xs:documentation>ActivationCheckRequest</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="ActivationCheckRequest">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element type="bbps:search" name="Search"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- <xs:complexType name="searchBiller">
+		<xs:sequence>
+					<xs:element type="xs:string" name="billerId" minOccurs="1" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType> -->
+</xs:schema>

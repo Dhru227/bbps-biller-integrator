@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" 
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd"></xs:include>
+	<xs:include schemaLocation="BillerFetchResponse.xsd"></xs:include>
+	<xs:element name="AgentFetchResponse" type="bbps:AgentFetchResponseType">
+		<xs:annotation>
+			<xs:documentation>Agent Fetch Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="AgentFetchResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:agent" name="Agent" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:SearchResult" name="searchResult" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="agent">
+		<xs:sequence>
+			<xs:element type="xs:string" name="agentId" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentBusnsType" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentAliasName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentLinkedAgentInst" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentGeoCode" minOccurs="1" maxOccurs="1" />			
+			<xs:element type="xs:string" name="agent_shop_name" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agent_mobile_no" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentDummy" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:PaymentModeLimit" name="agentPaymentModes" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:PaymentChannelLimit" name="agentPaymentChannels" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="xs:string" name="agentEffctvFrom" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentEffctvTo" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentStatus" minOccurs="1" maxOccurs="1" />
+			<xs:element name="agentTempDeactivationStart" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="agentTempDeactivationEnd" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="agentRefId" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentBulk" minOccurs="1" maxOccurs="1" />
+		 	<xs:element type="xs:string" name="agentPinCode" minOccurs="1" maxOccurs="1"/>
+		 	<xs:element type="xs:string" name="agentRegisteredCity" minOccurs="1" maxOccurs="1"/>
+		 	<xs:element type="xs:string" name="agentRegisteredState" minOccurs="1" maxOccurs="1"/>
+		 	<xs:element type="xs:string" name="agentRegisteredAddress" minOccurs="1" maxOccurs="1"/>
+		 	<xs:element type="xs:string" name="agentRegisteredCountry" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+</schema>

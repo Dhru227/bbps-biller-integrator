@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" elementFormDefault="unqualified"
+	attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="BulkBillPaymentResponse" type="bbps:BulkBillPaymentResponseType">
+		<xs:annotation>
+			<xs:documentation>UPMS Bulk Bill Payment Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BulkBillPaymentResponseType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="ParentRefId" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="OrigInstId" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Ts" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:BillPaymentBulkResponseType" name="BillPaymentResponse" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+    <xs:complexType name="BillPaymentBulkResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:reasonType" name="Reason" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billDetailsType" name="BillDetails" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billerResponseType" name="BillerResponse" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:additionalInfoType" name="AdditionalInfo" minOccurs="0" maxOccurs="1" /> <!-- BBPSREQ-25 -->
+			<xs:element type="bbps:upmsType" name="Upms" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

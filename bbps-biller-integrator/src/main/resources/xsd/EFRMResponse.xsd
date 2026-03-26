@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+
+	<xs:element name="EFRMResponse" type="bbps:EFRMResponseType">
+		<xs:annotation>
+			<xs:documentation>BBPS EFRM Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>	
+	<xs:complexType name="EFRMResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

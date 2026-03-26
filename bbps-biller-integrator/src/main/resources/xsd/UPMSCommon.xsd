@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:upms="http://upms.org/schema" targetNamespace="http://upms.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+
+	<xs:simpleType name="DeviceTagNameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOBILE" />
+			<xs:enumeration value="GEOCODE" />
+			<xs:enumeration value="POSTAL_CODE" />
+			<xs:enumeration value="IP" />
+			<xs:enumeration value="INITIATING_CHANNEL" />
+			<xs:enumeration value="TERMINAL_ID" />
+			<xs:enumeration value="IMEI" />
+			<xs:enumeration value="IFSC" />
+			<xs:enumeration value="MAC" />
+			<xs:enumeration value="OS" />
+			<xs:enumeration value="APP" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="BillerParamNameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BILL_TYPE" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="DebitType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FIXED_AMOUNT" />
+			<xs:enumeration value="MAX_AMOUNT" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="BillPeriodType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DAILY" />
+			<xs:enumeration value="WEEKLY" />
+			<xs:enumeration value="BIMONTHLY" />
+			<xs:enumeration value="MONTHLY" />
+			<xs:enumeration value="QUARTERLY" />
+			<xs:enumeration value="HALFYEARLY" />
+			<xs:enumeration value="YEARLY" />
+			<xs:enumeration value="ASPRESENTED" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="RegistrationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="VIEW_N_PAY" />
+			<xs:enumeration value="AUTO_PAY" />
+		</xs:restriction>
+	</xs:simpleType>
+
+
+
+
+	<xs:complexType name="headType">
+		<xs:attribute type="xs:string" name="ts" use="required" />
+		<xs:attribute type="xs:string" name="origInst" use="required" />
+		<xs:attribute type="xs:string" name="refId" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="tagType">
+		<xs:attribute type="xs:string" name="name" use="required" />
+		<xs:attribute type="xs:string" name="value" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="customerDtlsType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="Mobile" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Email" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Aadhaar" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="mandateType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="RegistrationType"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="BillPeriod" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="ToDate" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="upms:debitInfoType" name="DebitInfo"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Cprn" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Bprn" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="MultipleRegistrationExists"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Status" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="debitInfoType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="Type" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Amount" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Currency" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="PaymentMode" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="DebitDate" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billerParamType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="customerParamsType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="deviceType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="reasonType">
+		<xs:sequence>
+			<xs:element name="ResponseCode" type="xs:string"
+				maxOccurs="1" minOccurs="1" />
+			<xs:element name="ResponseReason" type="xs:string"
+				maxOccurs="1" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billerResponseType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="customerName" use="optional" />
+		<xs:attribute type="xs:string" name="amount" use="optional" />
+		<xs:attribute type="xs:string" name="dueDate" use="optional" />
+		<xs:attribute type="xs:string" name="custConvFee" use="optional" />
+		<xs:attribute type="xs:string" name="billDate" use="optional" />
+		<xs:attribute type="xs:string" name="billNumber" use="optional" />
+		<xs:attribute type="xs:string" name="billPeriod" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="additionalInfoType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="authType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="AccValidationRefNum"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="AccHolderName"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="AccType" minOccurs="1"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="parameterType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="PresentmentRegRefId"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Cprn" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="Bprn" minOccurs="0"
+				maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="presentmentStatusType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="PresentmentRegRefId"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="RegistrationCreationDate"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="BillerId" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="BillerInitiated"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="IssuerId" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="xs:string" name="AgentId" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element type="upms:customerDtlsType" name="Customer"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="upms:mandateType" name="Mandate"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="upms:billerParamType" name="BillerParams"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="upms:customerParamsType" name="CustomerParams"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="upms:billerResponseType" name="BillerResponse"
+				minOccurs="0" maxOccurs="1" />
+			<xs:element type="upms:additionalInfoType" name="AdditionalInfo"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="recordsType">
+		<xs:attribute type="xs:string" name="limit" use="optional" />
+		<xs:attribute type="xs:string" name="remaning" use="optional" />
+		<xs:attribute type="xs:string" name="fetched" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="paymentsType">
+		<xs:sequence>
+			<xs:element name="BillPayment" minOccurs="1" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element type="xs:string" name="BillerId" minOccurs="1"
+							maxOccurs="1" />
+						<xs:element type="xs:string" name="PresentmentRefId"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="xs:string" name="DateOfPayment"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="upms:mandateType" name="Mandate"
+							minOccurs="1" maxOccurs="1" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billsType">
+		<xs:sequence>
+			<xs:element name="BillPresentments" minOccurs="1"
+				maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+
+						<xs:element type="xs:string" name="RefId" minOccurs="1"
+							maxOccurs="1" />
+						<xs:element type="xs:string" name="Ts" minOccurs="1"
+							maxOccurs="1" />
+
+
+						<xs:element type="upms:billDetailsType" name="BillDetails"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="upms:billInfoType" name="BillInfo"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="upms:additionalInfoType" name="AdditionalInfo"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="upms:mandateType" name="Mandate"
+							minOccurs="1" maxOccurs="1" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billDetailsType">
+		<xs:sequence>
+			<xs:element type="upms:billerType" name="Biller"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element type="upms:customerParamsType" name="CustomerParams"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billerType">
+		<xs:attribute type="xs:string" name="id" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="billInfoType">
+		<xs:sequence>
+			<xs:element name="Tag" type="upms:tagType" maxOccurs="unbounded"
+				minOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="customerName" use="optional" />
+		<xs:attribute type="xs:string" name="amount" use="required" />
+		<xs:attribute type="xs:string" name="dueDate" use="optional" />
+		<xs:attribute type="xs:string" name="billDate" use="optional" />
+		<xs:attribute type="xs:string" name="billNumber" use="optional" />
+		<xs:attribute type="xs:string" name="billPeriod" use="optional" />
+	</xs:complexType>
+
+	<xs:complexType name="errorMessage">
+		<xs:sequence>
+			<xs:element type="xs:string" name="errorCd" />
+			<xs:element type="xs:string" name="errorDtl" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="billNotify">
+		<xs:sequence>
+			<xs:element name="BillPaymentNotifications" minOccurs="1"
+				maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element type="xs:string" name="RefId" minOccurs="1"
+							maxOccurs="1" />
+						<xs:element type="xs:string" name="Ts" minOccurs="1"
+							maxOccurs="1" />
+						<xs:element type="xs:string" name="BillerId" minOccurs="1"
+							maxOccurs="1" />
+						<xs:element type="xs:string" name="PresentmentRefId"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="xs:string" name="DateOfPayment"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element type="upms:mandateType" name="Mandate"
+							minOccurs="1" maxOccurs="1" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Ack">
+		<xs:sequence>
+				<xs:element name="errorMessages" type="upms:errorMessage" minOccurs="0" maxOccurs="unbounded">
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="refId" type="xs:string" />
+			<xs:attribute name="api" type="xs:string" />
+			<xs:attribute name="ts" type="xs:string" />
+			<xs:attribute name="RspCd" type="xs:string" />
+			<xs:attribute name="cprn" type="xs:string" />
+	</xs:complexType>
+	
+</xs:schema>

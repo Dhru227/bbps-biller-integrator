@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BillerFetchResponse.xsd" />
+	<xs:element name="BBPSPlanMDMPush" type="bbps:BBPSPlanMDMPushType">
+		<xs:annotation>
+			<xs:documentation>BBPS Plan MDM Push</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BBPSPlanMDMPushType">
+		<xs:sequence>
+			<xs:element type="bbps:PlanHeadType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:PlanDetail" name="PlanDetails" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:SearchResult" name="searchResult" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="totalRecords"  minOccurs="0" maxOccurs="0"/>
+			<xs:element type="xs:string" name="pageNumber"  minOccurs="0" maxOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PlanDetail">
+		<xs:sequence>
+			<xs:element type="xs:string" name="Id" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="billerId" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="categoryType" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:CategorySubType" name="categorySubType" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:double" name="amountInRupees" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="planDescription" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:PlanAdditionalInfo" name="planAdditionalInfo" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="effctvFrom" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="effctvTo" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="status"  minOccurs="1" maxOccurs="1"/>
+			
+			<!-- Adding for recurring mandate -->
+			<xs:element type="bbps:SupportRecurringMandate" name="supportRecurringMandate" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CategorySubType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="subType" minOccurs="0" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="PlanAdditionalInfo">
+		<xs:sequence>  
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="paramName" use="required" />
+					<xs:attribute type="xs:string" name="paramValue" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence> 
+	</xs:complexType>
+		
+	<xs:complexType name="PlanHeadType">
+		<xs:attribute type="xs:string" name="ver" use="required" />
+		<xs:attribute type="xs:string" name="ts" use="required" />
+		<xs:attribute type="xs:string" name="origInst" use="required" />
+		<xs:attribute type="xs:string" name="refId" use="required" />
+		<xs:attribute type="bbps:HeadRequestType" name="type" use="required" />
+	</xs:complexType>
+
+	<xs:simpleType name="HeadRequestType">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="REQUEST" />
+				<xs:enumeration value="RESPONSE" />
+			</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SupportRecurringMandate">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="MANDATORY" />
+				<xs:enumeration value="OPTIONAL" />
+				<xs:enumeration value="NOT_SUPPORTED" />
+			</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

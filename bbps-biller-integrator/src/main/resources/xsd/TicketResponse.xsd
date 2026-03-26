@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="TicketResponse" type="bbps:TicketResponse">
+		<xs:annotation>
+			<xs:documentation>BBPS API response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TicketResponse">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:TicketResp" name="TicketResp" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="TicketResp">
+		<xs:attribute type="xs:string" name="ticketId" use="optional" />
+		<xs:attribute type="xs:string" name="description" use="optional" />
+		<xs:attribute type="xs:string" name="ticketStatus" use="optional" />
+		<xs:attribute type="xs:string" name="assigned" use="optional" />
+		<xs:attribute type="xs:string" name="responseCode" use="optional" />
+		<xs:attribute type="xs:string" name="responseReason" use="optional" />
+		<xs:attribute type="xs:string" name="remarks" use="optional" />
+		<xs:attribute type="xs:string" name="txnReferenceId" use="optional" />
+		<xs:attribute type="xs:string" name="disposition" use="optional" />
+		<xs:attribute type="xs:string" name="ticketType" use="optional" />
+	</xs:complexType>
+</xs:schema>

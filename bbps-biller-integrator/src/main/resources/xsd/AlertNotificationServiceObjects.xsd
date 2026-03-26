@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="AlertNotificationDetail.xsd" />
+
+			<xs:complexType name="AlertMessage">
+			<xs:sequence>
+				<xs:element name="alertId" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="creatorId" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="message" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="name" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="startDate" type="xs:date" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="endDate" type="xs:date" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="purpose" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="remarks" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="customParams" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetGroup" type="bbps:NotificationTargetGroupTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetUserIds" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetEmails" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetMobiles" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="stakeHolder" type="bbps:NotificationStakeHolderTypes" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="commChannel" type="bbps:NotificationCommChannelTypes"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="active" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" />
+				<xs:element name="deleted" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" />
+				<xs:element name="alertType" type="bbps:NotificationAlertTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="repetInterval" type="bbps:NotificationRepetIntervelTypes" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="repetTime" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="sourceApp" type="xs:string" minOccurs="0"
+					maxOccurs="1"  />
+				<xs:element name="targetEntity"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+            	<xs:element name="additionalEmail"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+
+		
+		<xs:complexType name="NotificationMessage">
+			<xs:sequence>
+				<xs:element name="senderId" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetGroup" type="bbps:NotificationTargetGroupTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetEmails" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetMobiles" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="message" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="purpose" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="remarks" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="name" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="customParams" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="emailTemplateId" type="xs:int" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="stakeHolder" type="bbps:NotificationStakeHolderTypes" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="sourceApp" type="xs:string" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="targetEntity"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+            	<xs:element name="additionalEmail"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+			
+</xs:schema>

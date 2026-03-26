@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+
+	<xs:element name="BillRefNumberStatusUpdateRequest" type="bbps:BillRefNumberStatusUpdateRequestType">
+		<xs:annotation>
+			<xs:documentation>BillReferenceNumber Update Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BillRefNumberStatusUpdateRequestType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1"
+				maxOccurs="1" />
+			<xs:element type="bbps:statusType" name="Reason"
+				minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="statusType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="responseCode" use="required" />
+				<xs:attribute type="xs:string" name="responseReason" use="required" />
+				<xs:attribute type="xs:string" name="complianceRespCd" use="optional" />
+				<xs:attribute type="xs:string" name="complianceReason" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="BillerFetchRequest" type="bbps:BillerFetchRequestType">
+		<xs:annotation>
+			<xs:documentation>BBPS Biller Fetch Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:complexType name="BillerFetchRequestType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:searchMyBiller" name="SearchMyBiller" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="bbps:searchType" name="Search" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:searchByTime" name="SearchByTime" minOccurs="0" maxOccurs="1" />
+			<!-- Biller MDM search by Feature - Shreeya -->
+			<xs:element type="bbps:searchByFeature" name="SearchByFeature" minOccurs="0" maxOccurs="1"/>
+			<!-- New Biller MDM for Pagination - Nancy -->
+			<xs:element type="bbps:paging" name="Paging" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="afterbillerid" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="beforebillerid" minOccurs="0" maxOccurs="1"  />
+			<xs:element type="xs:integer" name="limit" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>  
+	<xs:complexType name="searchType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="billerId" minOccurs="0" 	maxOccurs="unbounded" />
+			<xs:element type="xs:string" name="billerName" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="xs:string" name="billerCategoryName" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="xs:string" name="paymentMode" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element type="xs:string" name="paymentChannel" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="searchByTime">
+		<xs:sequence>
+			<xs:element type="xs:string" name="time" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="searchMyBiller">
+		<xs:attribute type="bbps:myBiller" name="mybiller" />
+	</xs:complexType>
+	<xs:simpleType name="myBiller">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- New Biller MDM for Pagination - Nancy -->
+	<xs:complexType name="paging">
+		<xs:sequence>
+			<xs:element type="xs:string" name="afterbillerid" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="beforebillerid" minOccurs="0" maxOccurs="1"  />
+			<xs:element type="xs:integer" name="limit" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id" use="required" />
+	</xs:complexType>
+	
+	<!-- Biller MDM search by Feature - Shreeya -->
+	
+	<xs:simpleType name="searchByFeature">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Upms" />
+			<xs:enumeration value="Clickpay" />
+			<xs:enumeration value="Upms,Clickpay" />
+			<xs:enumeration value="Clickpay,Upms" />
+			<xs:enumeration value="Corporate" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+ 
+				
+	
+
+	
+	
+</xs:schema>

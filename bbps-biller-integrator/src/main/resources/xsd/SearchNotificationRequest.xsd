@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="AlertNotificationDetail.xsd" />
+	<xs:element name="SearchNotificationRequest">
+		<xs:complexType>
+
+			<xs:sequence>
+				<xs:element name="creatorId" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetUserId" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="commChannel" type="bbps:NotificationCommChannelTypes"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="notificationType" type="bbps:NotificationTypes" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="stakeHolder" type="bbps:NotificationStakeHolderTypes" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="severity" type="bbps:NotificationSeverityTypes" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element name="repetInterval" type="bbps:NotificationRepetIntervelTypes" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetGroup" type="bbps:NotificationTargetGroupTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="dateSearch" type="xs:boolean" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="startDate" type="xs:date" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="endDate" type="xs:date" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="orderByColumn" type="bbps:NotificationOrderBy"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="orderDirection" type="bbps:NotificationOrderDirection"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="pageNo" type="xs:int" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="pageSize" type="xs:int" minOccurs="0"
+					maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="NotificationOrderDirection">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASC" />
+			<xs:enumeration value="DESC" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NotificationOrderBy">
+		<xs:restriction base="xs:string">
+			<xs:enumeration  value="notification_type" />
+			<xs:enumeration  value="user_type"/>
+			<xs:enumeration  value="severity"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+
+</xs:schema>

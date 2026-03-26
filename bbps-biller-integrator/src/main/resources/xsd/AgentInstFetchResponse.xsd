@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" 
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd"></xs:include>
+	<xs:include schemaLocation="BillerFetchResponse.xsd"></xs:include>
+	<xs:element name="AgentInstituteFetchResponse" type="bbps:AgentInstituteFetchResponseType">
+		<xs:annotation>
+			<xs:documentation>Agent Institute Fetch Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="AgentInstituteFetchResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:AgentInstitute" name="agentInstitutes" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:SearchResult" name="searchResult" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AgentInstitute">
+		<xs:sequence>
+			<xs:element type="xs:string" name="agentInstituteId" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstType" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstBusnsType" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstAliasName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstLinkedOU" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstTanNo" minOccurs="1" maxOccurs="1" />			
+			<xs:element type="xs:string" name="agentInstEffctvFrom" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstEffctvTo" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstUaadhaar" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstRocUin" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="agentInstStatus" minOccurs="1" maxOccurs="1" />
+			<xs:element name="agentInstTempDeactivationStart" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="agentinstTempDeactivationEnd" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			
+		</xs:sequence>
+	</xs:complexType>
+</schema>

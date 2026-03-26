@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+		<xs:element name="NotificationDetailType" type="bbps:notificationDetailType">
+			<xs:annotation>
+				<xs:documentation>NotificaitonAlertDetails</xs:documentation>
+			</xs:annotation>
+		</xs:element>
+
+		<xs:complexType name="notificationDetailType">
+			<xs:sequence>
+				<xs:element name="notificationId" type="xs:long" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="creatorId" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="message" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="startDate" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="endDate" type="xs:long" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="purpose" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="remarks" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetGroup" type="bbps:NotificationTargetGroupTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="targetUserIds" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="stakeHolder" type="bbps:NotificationStakeHolderTypes" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="commChannel" type="bbps:NotificationCommChannelTypes"
+					minOccurs="0" maxOccurs="1" />
+				<xs:element name="active" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" />
+				<xs:element name="deleted" type="xs:boolean"
+					minOccurs="1" maxOccurs="1" />
+				<xs:element name="repetInterval" type="bbps:NotificationRepetIntervelTypes" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="triggerTime" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="notificationType" type="bbps:NotificationTypes" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="severity" type="bbps:NotificationSeverityTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="alertType" type="bbps:NotificationAlertTypes" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="customParams" type="xs:string" minOccurs="1" 
+					maxOccurs="1" />
+				<xs:element name="templateId" type="xs:int" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetEmails" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="targetMobiles" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="name" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="attachmentFilePathName" type="xs:string" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="processed" type="xs:boolean" minOccurs="0"
+					maxOccurs="1" />
+				<xs:element name="sourceApp" type="xs:string" minOccurs="1"
+					maxOccurs="1"  />
+				<xs:element name="targetEntity"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+            	<xs:element name="additionalEmail"  minOccurs="0" type="xs:string"
+            		maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+
+		<xs:simpleType name="NotificationAlertTypes">
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ADHOC" />
+				<xs:enumeration value="STATIC" />
+				<xs:enumeration value="REPETITIVE" />
+				<xs:enumeration value="BROADCAST" />
+			</xs:restriction>
+		</xs:simpleType>
+
+	<xs:simpleType name="NotificationPurposeTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Downtime" />
+			<xs:enumeration value="Field Information" />
+			<xs:enumeration value="New Launches" />
+			<xs:enumeration value="Scheme" />
+			<xs:enumeration value="Others" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="NotificationStakeHolderTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BBPOUS" />
+			<xs:enumeration value="BBPCU" />
+			<xs:enumeration value="CUSTOMERS" />
+			<xs:enumeration value="BILLERS" />
+			<xs:enumeration value="AGENT_INSTITUTIONS" />
+			<xs:enumeration value="AGENTS" />
+			<xs:enumeration value="OTHERS" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="NotificationCommChannelTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration  value="SMS" />
+			<xs:enumeration  value="Email"/>
+			<xs:enumeration  value="Message Box"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="NotificationTargetGroupTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BBPOUS" />
+			<xs:enumeration value="BBPCU" />
+			<xs:enumeration value="CUSTOMERS" />
+			<xs:enumeration value="BILLERS" />
+			<xs:enumeration value="AGENT_INSTITUTIONS" />
+			<xs:enumeration value="AGENTS" />
+			<xs:enumeration value="OTHERS" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="NotificationRepetIntervelTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration  value="Once" />
+			<xs:enumeration  value="Daily" />
+			<xs:enumeration  value="AlternateDay" />
+			<xs:enumeration  value="Weekly"/>
+			<xs:enumeration  value="BiWeekly"/>
+			<xs:enumeration  value="Monthly"/>
+			<xs:enumeration  value="SemiMonthly"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	
+	<xs:simpleType name="NotificationSeverityTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="HIGH" />
+			<xs:enumeration value="MEDIUM" />
+			<xs:enumeration value="LOW" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="NotificationTypes">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SMS" />
+			<xs:enumeration value="EMAIL" />
+			<xs:enumeration value="ONSCREEN" />
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

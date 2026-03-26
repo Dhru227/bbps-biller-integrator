@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+
+	<xs:element name="BillPresentmentConfirmations" type="bbps:BillPresentmentConfirmationsType">
+		<xs:annotation>
+			<xs:documentation>BBPS Bulk Bill Presentment Confirmations</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BillPresentmentConfirmationsType">
+		<xs:sequence>
+			<xs:element type="bbps:BillPresentmentConfirmationType" name="billPresentmentConfirmation" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="BillPresentmentConfirmation" type="bbps:BillPresentmentConfirmationType">
+		<xs:annotation>
+			<xs:documentation>Bill Presentment Confirmation</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="BillPresentmentConfirmationType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:reasonType" name="Reason" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

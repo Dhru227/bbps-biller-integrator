@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:simpleType name="custIdentityConstant">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EMAIL" />
+			<xs:enumeration value="PAN" />
+			<xs:enumeration value="AADHAAR" />
+			<xs:enumeration value="AUTHMETHOD" />
+			<xs:enumeration value="LOAN_ACCOUNT" />
+			<xs:enumeration value="CAN" />
+			<xs:enumeration value="MOBILE" />
+			<xs:enumeration value="ACCOUNT_HOLDER_NAME" /> <!-- Mutual Fund - Part 2 -->
+			<xs:enumeration value="ACCOUNT_TYPE" />
+			<xs:enumeration value="REMITTER_NAME" />
+			<xs:enumeration value="ADDRESS" />
+			<xs:enumeration value="DATEANDPLACEOFBIRTH" />
+			<xs:enumeration value="NATIONALIDENTITYNUMBER" />
+			<xs:enumeration value="CUSTOMERIDENTIFICATIONNUMBER" />
+			
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- change   for   version 8 -->
+	<xs:simpleType name="transactionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FORWARD TYPE REQUEST" />
+			<xs:enumeration value="REVERSAL TYPE REQUEST" />
+			<xs:enumeration value="FORWARD TYPE RESPONSE" />
+			<xs:enumeration value="REVERSAL TYPE RESPONSE" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="deviceTagNameType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOBILE" />
+			<xs:enumeration value="GEOCODE" />
+			<xs:enumeration value="POSTAL_CODE" />
+			<xs:enumeration value="IP" />
+			<xs:enumeration value="INITIATING_CHANNEL" />
+			<xs:enumeration value="TERMINAL_ID" />
+			<xs:enumeration value="IMEI" />
+			<xs:enumeration value="IFSC" />
+			<xs:enumeration value="MAC" />
+			<xs:enumeration value="OS" />
+			<xs:enumeration value="APP" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="initiatingChannelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INT" />
+			<xs:enumeration value="MOB" />
+			<xs:enumeration value="POS" />
+			<xs:enumeration value="KIOSK" />
+			<xs:enumeration value="MPOS" />
+			<xs:enumeration value="ATM" />
+			<xs:enumeration value="BNKBRNCH" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="qckPayType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="spltPayType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="offUsPayType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- Prepaid Recharge -->
+	<xs:simpleType name="planType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEW" />
+			<xs:enumeration value="EXISTING" />
+            <xs:enumeration value="RECOMMENDED" />
+            <xs:enumeration value="CURATED" />
+            <xs:enumeration value="ACTIVATED" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- For Fetch Reutilization -->
+	<xs:simpleType name="siTxnType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Yes" />
+			<xs:enumeration value="No" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="analyticsFetchTypeInstance">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FETCHREQUESTSTART" />
+			<xs:enumeration value="FETCHREQUESTEND" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="analyticsPaymentTypeInstance">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PAYREQUESTSTART" />
+			<xs:enumeration value="PAYREQUESTEND" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+		<!-- change   for   UPMS -->
+	<xs:simpleType name="upmsTxnType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PRESENTMENT_REGISTRATION" />
+			<xs:enumeration value="BILL_PRESENTMENT" />
+			<xs:enumeration value="BILL_PAYMENT" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="headType">
+		<xs:attribute type="xs:string" name="ver" use="required" />
+		<xs:attribute type="xs:string" name="ts" use="required" />
+		<xs:attribute type="xs:string" name="origInst" use="required" />
+		<xs:attribute type="xs:string" name="refId" use="required" />
+		<xs:attribute type="xs:string" name="origRefId" use="optional" />
+		<xs:attribute type="xs:string" name="orderConfirmationId" use="optional" />
+		<!-- For Fetch Reutilization -->
+		<xs:attribute type="bbps:siTxnType" name="siTxn" use="optional" />
+			<xs:attribute type="xs:string" name="callbackEndpointIP" use="optional" />
+		<xs:attribute type="xs:string" name="response" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="analyticsType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="2" minOccurs="2">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name"
+						use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="riskScoresType">
+		<xs:sequence>
+			<xs:element name="Score" maxOccurs="unbounded" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="provider" use="required" />
+					<xs:attribute type="xs:string" name="type" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="txnType">
+		<xs:sequence>
+			<xs:element type="bbps:riskScoresType" name="RiskScores" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="ts" use="required"/>
+		<!-- type mandatory and used for payment. Also used for presentment requests for marking CANCELLATION requests -->
+		<xs:attribute type="xs:string" name="type" use="optional"/>
+		<!-- msgId mandatory for fetch and payment -->
+		<xs:attribute type="xs:string" name="msgId" use="optional"/>	
+		<!-- txnReferenceId mandatory and used only for payment -->
+		<xs:attribute type="xs:string" name="txnReferenceId" use="optional"/>
+		<!-- xchangeId mandatory and used only for CMS -->
+		<xs:attribute type="xs:string" name="xchangeId" use="optional"/>
+		<!-- BBPSQR starts -->
+		<xs:attribute type="bbps:directBillChannelType" name="directBillChannel" use="optional" />
+		<xs:attribute type="xs:string" name="directBillContentId" use="optional"/>
+		<!-- BBPSQR ends -->
+		<!-- PaymentRefId Changes starts -->
+		<!-- paymentRefId mandatory and used only for payment -->
+		<xs:attribute type="xs:string" name="paymentRefId" use="optional"/>
+		<!-- PaymentRefId Changes starts -->
+		
+		<!-- BBPS QR Terminal ID (TID) added by Sudhir -->
+		<xs:attribute type="xs:string" name="tId" use="optional"/>
+		
+	</xs:complexType>	
+	
+	<!-- BBPSQR -->
+	<xs:simpleType name="directBillChannelType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L1QR"/>
+			<xs:enumeration value="L2QR"/>
+			<xs:enumeration value="L3QR"/>
+			<xs:enumeration value="L1PL"/>
+			<xs:enumeration value="L2PL"/>
+			<xs:enumeration value="L3PL"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="customerDtlsType">	
+		<xs:sequence>
+				<xs:element name="Tag" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute type="xs:string" name="name" use="required" />
+						<xs:attribute type="xs:string" name="value" use="required" />
+					</xs:complexType>
+				</xs:element>
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="mobile" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="deviceType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="bbps:deviceTagNameType" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="agentType">
+		<xs:sequence>
+			<xs:element type="bbps:deviceType" name="Device" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="id" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="billerType">
+		<xs:attribute type="xs:string" name="id" use="required" />
+	</xs:complexType>
+			
+	<xs:complexType name="customerParamsType">
+		<xs:sequence>  
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence> 
+	</xs:complexType>
+	
+	<!-- Prepaid Recharge starts -->
+	<xs:complexType name="planInfoType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+
+
+		</xs:sequence>
+        <xs:attribute type="bbps:planType" name="type" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="planDetailsType">
+		<xs:sequence>
+			<xs:element name="PlanDetail" type="bbps:planDetailType"
+				maxOccurs="unbounded" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="planDetailType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>			
+		</xs:sequence>
+		<xs:attribute type="bbps:planType" name="type" use="required" />
+		<xs:attribute type="xs:string" name="Id" use="required" />
+	</xs:complexType> 
+	 	
+	<!-- Prepaid Recharge ends -->
+
+	<xs:complexType name="billDetailsType">
+		<xs:sequence>
+			<xs:element type="bbps:billerType" name="Biller" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:customerParamsType" name="CustomerParams" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+<!-- 	Modified by Nancy K on 17-SEP-2019 ( For New categories other than due amount all are optional ) -->
+	<xs:complexType name="billerResponseType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+					<xs:attribute type="xs:string" name="minAmount" use="optional" />
+					<xs:attribute type="xs:string" name="maxAmount" use="optional" />
+					<xs:attribute type="xs:string" name="amountMultiple" use="optional" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BillerSpecificInfo" type="bbps:BillerSpecificInfoType" minOccurs="0" maxOccurs="1000" />
+			<xs:element name="CCF1" maxOccurs="1" minOccurs="0" >
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="type" use="required" />
+					<xs:attribute type="xs:string" name="charges" use="required" />
+					<xs:attribute type="xs:string" name="GST" use="required" />
+					<xs:attribute type="xs:string" name="totalCharges" use="required" />
+					<xs:attribute type="xs:string" name="remarks" use="optional" />
+				</xs:complexType>
+			</xs:element>
+
+		</xs:sequence>	
+		<xs:attribute type="xs:string" name="customerName" use="optional" />
+		<xs:attribute type="xs:string" name="amount" use="required" />
+		<xs:attribute type="xs:string" name="dueDate" use="optional" />
+		<xs:attribute type="xs:string" name="custConvFee" use="optional" />
+		<xs:attribute type="xs:string" name="label" use="optional" />
+		<xs:attribute type="xs:string" name="amountMultiple" use="optional" />
+		<!-- 
+		<xs:attribute type="xs:string" name="custConvDesc" use="optional" />
+		-->
+		<xs:attribute type="xs:string" name="minAmount" use="optional" />
+		<xs:attribute type="xs:string" name="maxAmount" use="optional" />
+		<xs:attribute type="xs:string" name="billDate" use="optional" />
+		<xs:attribute type="xs:string" name="billNumber" use="optional" />
+		<xs:attribute type="xs:string" name="billPeriod" use="optional" />
+		<xs:attribute type="xs:string" name="billExpiry" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="BillerSpecificInfoType">
+    <xs:sequence>
+       <xs:element name="Tag" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+             <xs:attribute name="name" type="xs:string" use="required"/>
+             <xs:attribute name="value" type="xs:string" use="required"/>
+          </xs:complexType>
+       </xs:element>
+    </xs:sequence>
+	</xs:complexType>
+	<!-- Prepaid Recharge -->
+	<xs:complexType name="billerPlanResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:planInfoType" name="PlanInfo" maxOccurs="15" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	
+
+	<xs:complexType name="reasonType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="approvalRefNum" use="required" />
+				<xs:attribute type="xs:string" name="responseCode" use="required" />
+				<xs:attribute type="xs:string" name="responseReason" use="required" />
+				<xs:attribute type="xs:string" name="complianceRespCd" use="optional" />
+				<xs:attribute type="xs:string" name="complianceReason" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+
+	<xs:complexType name="CCF1Type">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="type" use="required" />
+				<xs:attribute type="xs:string" name="charges" use="required" />
+				<xs:attribute type="xs:string" name="GST" use="required" />
+				<xs:attribute type="xs:string" name="totalCharges" use="required" />
+				<xs:attribute type="xs:string" name="remarks" use="optional" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+
+	<xs:complexType name="additionalInfoType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- For Paymemnt -->
+	<xs:complexType name="pmtMtdType">
+		<xs:attribute type="bbps:qckPayType" name="quickPay" />
+		<xs:attribute type="bbps:spltPayType" name="splitPay" />
+		<xs:attribute type="bbps:offUsPayType" name="OFFUSPay" use="optional"/>
+		<xs:attribute type="xs:string" name="paymentMode" />
+	</xs:complexType>
+	
+	<xs:complexType name="amtType">
+		<xs:attribute type="xs:string" name="amount" />
+		<xs:attribute type="xs:string" name="custConvFee" />		
+		<xs:attribute type="xs:string" name="currency" />
+		<xs:attribute type="xs:string" name="COUcustConvFee" use="optional"/>
+		<xs:attribute type="xs:string" name="billNumber" use="optional"/>
+	</xs:complexType>
+	
+	<xs:complexType name="amountType">
+		<xs:sequence>
+			<xs:element type="bbps:amtType" name="Amt" />
+			<xs:element type="bbps:amtBreakUpType" name="AmountBreakUp" />
+			<xs:element type="xs:string" name="SplitPayAmount" />
+			<xs:sequence>
+				<xs:element name="Tag" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:attribute type="xs:string" name="name" use="required" />
+						<xs:attribute type="xs:string" name="value" use="required" />
+						<xs:attribute type="xs:string" name="minAmount" use="optional" />
+						<xs:attribute type="xs:string" name="maxAmount" use="optional" />
+						<xs:attribute type="xs:string" name="amountMultiple" use="optional" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+	<xs:complexType name="pymntInfType">
+		<xs:sequence>
+			<xs:element name="Tag" maxOccurs="unbounded" minOccurs="1">
+				<xs:complexType>
+					<xs:attribute type="xs:string" name="name" use="required" />
+					<xs:attribute type="xs:string" name="value" use="required" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="errorMessage">
+		<xs:sequence>
+			<xs:element type="xs:string" name="errorCd" />
+			<xs:element type="xs:string" name="errorDtl" />
+		</xs:sequence>
+	</xs:complexType>
+	<!-- Added END for BBPS Specific -->
+	
+	<!-- Biller Status  -->
+	<xs:complexType name="search">
+		<xs:sequence>
+					<xs:element type="xs:string" name="billerId" minOccurs="1" 	maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- change   for   UPMS -->
+	<xs:complexType name="upmsType">
+		<xs:attribute type="bbps:upmsTxnType" name="txnType" use="optional" />
+		<xs:attribute type="xs:string" name="cprn" use="optional" />
+		<xs:attribute type="xs:string" name="bprn" use="optional" />
+		<xs:attribute type="xs:boolean" name="isBulk" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="amt">
+		<xs:attribute type="xs:string" name="amount" />
+	</xs:complexType>
+	
+	<xs:complexType name="amtBreakUpType">
+	<xs:sequence>
+		<xs:element type="bbps:billAmountType" name="BillAmt" minOccurs="0" maxOccurs="unbounded"/>
+		<xs:element type="bbps:TDSDeductedAmountType" name="TDSDeductedAmt" minOccurs="0" maxOccurs="unbounded"/>
+	</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name ="billAmountType">
+	<xs:attribute type="xs:string" name="billNumber" use="optional" />
+	<xs:attribute type="xs:string" name="Amount" use="optional" />
+	</xs:complexType>
+
+	<!-- Added for Corporate Flag -->
+    <xs:complexType name ="TDSDeductedAmountType">
+    	<xs:attribute type="xs:string" name="billNumber" use="optional" />
+    	<xs:attribute type="xs:string" name="Amount" use="optional" />
+    </xs:complexType>
+
+	<!-- Added for Biller Category - EFRM -->
+    <xs:complexType name="billerCategoryType">
+		<xs:attribute type="xs:string" name="category" use="required" />
+	</xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" elementFormDefault="unqualified" attributeFormDefault="unqualified">
+   <xs:include schemaLocation="BBPS-Common.xsd" />
+   <xs:element name="BillerActivationCheckResponse" type="bbps:ActivationCheckResponse">
+      <xs:annotation>
+         <xs:documentation>Activation Check Response</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   
+   <xs:complexType name="ActivationCheckResponse">
+      <xs:sequence>
+         <xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+         <xs:element type="bbps:ActivationBiller" name="Biller" minOccurs="1" maxOccurs="unbounded" />
+      </xs:sequence>
+   </xs:complexType>
+   
+   <xs:complexType name="ActivationBiller">
+     
+         <xs:attribute type="xs:string" name="id" />
+         <xs:attribute type="xs:string" name="extendDownTime"  />
+        <xs:attribute type="xs:string" name="durationInMinutes"/>
+     
+   </xs:complexType>
+</xs:schema>

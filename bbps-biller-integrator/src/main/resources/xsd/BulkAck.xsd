@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema" elementFormDefault="unqualified"
+	attributeFormDefault="unqualified">
+	<xs:include schemaLocation="Ack.xsd" />
+	<xs:element name="BulkAck" type="bbps:BulkAckType">
+		<xs:annotation>
+			<xs:documentation>BBPS Bulk Ack</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BulkAckType">
+		<xs:sequence>
+			<xs:element type="xs:string" name="ParentRefId" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="OuId" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Api" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="Ts" minOccurs="1" maxOccurs="1" />
+			<xs:element name="RspCd" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:Ack" minOccurs="1" maxOccurs="unbounded" name="Acks"/>
+		</xs:sequence>
+	</xs:complexType>
+		<!-- <xs:complexType name="Ack">
+			<xs:sequence>
+				<xs:element name="errorMessages" type="bbps:errorMessage"
+					minOccurs="0" maxOccurs="unbounded">
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="api" type="xs:string" />
+			<xs:attribute name="refId" type="xs:string" />
+			<xs:attribute name="msgId" type="xs:string" />
+			<xs:attribute name="RspCd" type="xs:string" />
+			<xs:attribute name="ts" type="xs:string" />
+		</xs:complexType> -->
+</xs:schema>

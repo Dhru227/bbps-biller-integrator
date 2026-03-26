@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bbps="http://bbps.org/schema" targetNamespace="http://bbps.org/schema"
+	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="BillerFetchResponse" type="bbps:BillerFetchResponseType">
+		<xs:annotation>
+			<xs:documentation>BBPS Biller Fetch Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+
+	<xs:complexType name="BillerFetchResponseType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:Biller" name="biller" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:SearchResult" name="searchResult" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Biller">
+		<xs:sequence>
+			<xs:element type="xs:string" name="billerId" minOccurs="1" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="billerName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="billerAliasName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="billerCategoryName" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="billerSubCategoryName" minOccurs="0" maxOccurs="1" /><!-- Biller subcategory changes - shreeya(26-7-2022) -->
+			<xs:element type="xs:string" name="billerMode" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="billerResponseType" minOccurs="1" maxOccurs="1" /> <!-- Prepaid Recharge -->
+			<xs:element type="xs:boolean" name="billerAcceptsAdhoc" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:boolean" name="parentBiller" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:string" name="parentBillerId" minOccurs="1" maxOccurs="1" />
+			<xs:element name="billerOwnerShp" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="billerCoverage" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:FetchRequirement" name="fetchRequirement"  minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:AuthRequirement" name="authRequirement"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="paymentAmountExactness" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="supportBillValidation" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="billerEffctvFrom" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="billerEffctvTo" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="billerTempDeactivationStart" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="billerTempDeactivationEnd" type="xs:string"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="bbps:PaymentModeLimit" name="billerPaymentModes" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:PaymentChannelLimit" name="billerPaymentChannels" minOccurs="1" maxOccurs="unbounded"></xs:element>
+			<xs:element type="bbps:ParamConfig" name="billerCustomerParams" minOccurs="1" maxOccurs="unbounded"></xs:element>
+			<xs:element type="bbps:CustomerParamGroups" name="customerParamGroups" minOccurs="0" maxOccurs="1"></xs:element><!-- BBPSREQ-15-Biller MDM customer parameter changes -->
+			<xs:element type="bbps:ParamConfig" name="billerSpecificInfos" nillable="true" minOccurs="0" maxOccurs="unbounded"/><!-- BBPSREQ-15-Biller MDM customer parameter changes -->
+			<xs:element type="bbps:BillerResponseParams" name="billerResponseParams" minOccurs="1" maxOccurs="1"></xs:element>
+			<xs:element type="bbps:BillerPlanResponseParams" name="billerPlanResponseParams" minOccurs="1" maxOccurs="1"></xs:element> <!-- Prepaid Recharge -->			
+			<xs:element type="bbps:ParamConfig" name="billerAdditionalInfo" minOccurs="1" maxOccurs="unbounded"></xs:element>
+			<xs:element type="bbps:ParamConfig" name="billerAdditionalInfoPayment" minOccurs="1" maxOccurs="unbounded"></xs:element> <!-- BBPSREQ-25 -->
+			<xs:element type="bbps:InterchangeFeeConf" name="interchangeFeeConf"  minOccurs="1" maxOccurs="unbounded"></xs:element>
+			<xs:element type="bbps:InterchangeFee" name="interchangeFee"  minOccurs="1" maxOccurs="unbounded"/>
+			<xs:element type="xs:string" name="Status"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="billerDescription"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="supportDeemed"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="supportPendingStatus"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="xs:string" name="billerTimeOut"  minOccurs="0" maxOccurs="1"/>
+			<xs:element type="bbps:PlanMDMRequirement" name="planMdmRequirement"  minOccurs="0" maxOccurs="1"/> <!-- Plan MDM Changes -->
+			<xs:element type="bbps:ParamConfig" name="planAdditionalInfo" minOccurs="0" maxOccurs="unbounded"></xs:element> <!-- Plan MDM Changes -->
+			
+			<!-- change   for   UPMS -->
+			<xs:element type="bbps:PaymentModeLimit" name="upmsBillerPaymentModes" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:PaymentChannelLimit" name="upmsBillerPaymentChannels" minOccurs="0" maxOccurs="unbounded"></xs:element>
+			
+			<!-- Biller MDM search by feature changes - Shreeya -->
+			<xs:element type="xs:boolean" name="upmsEnabled" minOccurs="0" 	maxOccurs="1" />
+			<xs:element type="bbps:ParamConfig" name="upmsbillerParams" minOccurs="0" 	maxOccurs="unbounded" />
+
+			<!-- Biller MDM new tag added by - SAYON (14-03-2023) -->
+			<xs:element type="bbps:UpmsBillerType" name="upmsBillerType" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:SelectionType" name="selectionType" minOccurs="1" maxOccurs="1" />
+
+			<xs:element type="xs:boolean" name="clickpayEnabled" minOccurs="0" 	maxOccurs="1" />
+			<xs:element type="xs:string" name="clickpayValue" minOccurs="0" 	maxOccurs="1" />
+			
+			<xs:element type="xs:boolean" name="additionalFeesEnabled" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:ParamConfig" name="additionalFees" minOccurs="0" maxOccurs="unbounded" />
+			
+			<!-- added for fetch retention -->
+			<xs:element type="xs:boolean" name="supportsCalendarDayFetchRetention" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="fetchRetentionInHours" minOccurs="0" maxOccurs="1" />
+			<!-- added for deemed success -->
+			<xs:element type="xs:boolean" name="deemedSuccessEnabled" minOccurs="0" maxOccurs="1" />
+			<xs:element name="valAddFlag" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+			<xs:element type="bbps:ValAddCustomerParams" name="valAddCustParams" minOccurs="1" maxOccurs="unbounded"></xs:element>
+			
+			<!-- Added for corporate biller -->
+			<xs:element name="corporateFlag" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+			<!-- Added for bill_adjustment_frequency -->
+			<xs:element type="xs:string" name="billAdjustmentFrequency" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:MandateRequirement" name="mandateRequirement"  minOccurs="1" maxOccurs="1"/>
+			<xs:element type="xs:string" name="blrReqResFormat"  minOccurs="1" maxOccurs="1"/>
+			<xs:element type="xs:boolean" name="pseudoBiller"  minOccurs="1" maxOccurs="1"/>
+			<xs:element type="xs:boolean" name="supportCallBack"  minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:ccfResponseRemarks" name="ccfResponseRemarks" minOccurs="0" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PaymentModeLimit">
+		<xs:sequence>
+			<xs:element type="xs:string" name="paymentMode" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:long" name="maxLimit" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:long" name="minLimit" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="supportPendingStatus" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="PaymentChannelLimit">
+		<xs:sequence>
+			<xs:element type="xs:string" name="paymentChannel" minOccurs="1" maxOccurs="1" />
+			<xs:element type="xs:long" name="maxLimit" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:long" name="minLimit" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="supportPendingStatus" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ParamConfig">
+		<xs:sequence>
+			<xs:element type="xs:string" name="paramName" />
+			<xs:element type="bbps:DataType" name="dataType" />
+			<xs:element type="xs:boolean" name="optional" />
+			<xs:element type="xs:long" name="minValue" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:long" name="maxValue" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:int" name="minLength" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:int" name="maxLength" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="regex" minOccurs="0" maxOccurs="1" />  <!-- Added for CR-634 -->
+			<xs:element type="xs:string" name="values" minOccurs="0" maxOccurs="1" /> <!-- BBPSREQ-15-Biller MDM customer parameter changes -->
+			<xs:element type="xs:boolean" name="visibility" minOccurs="0" maxOccurs="1"/> <!-- BBPSREQ-38-Biller MDM Mutual Fund category changes -->
+			<xs:element type="bbps:EncryptionType" name="encryptionType" default="NONE"/>
+			<xs:element type="xs:boolean" name="unique" minOccurs="0" maxOccurs="1"/> <!-- Prepaid Recharge -->
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ValAddCustomerParams">
+		<xs:sequence>
+			<xs:element type="xs:string" name="requestType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:ParamConfig" name="customerParams" minOccurs="1" maxOccurs="unbounded"></xs:element>
+		</xs:sequence>
+
+	</xs:complexType>
+
+
+	<xs:complexType name="ccfResponseRemarks">
+		<xs:sequence>
+			<xs:element type="xs:string" name="ccfSource" minOccurs="0" maxOccurs="1" />
+			<xs:element type="xs:string" name="ccfRemarks" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+
+	</xs:complexType>
+
+	<xs:simpleType name="DataType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NUMERIC" />
+			<xs:enumeration value="ALPHANUMERIC" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="EncryptionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NONE" />
+			<xs:enumeration value="MASK" />
+			<xs:enumeration value="ENCRYPT" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="BillerResponseParams">
+		<xs:sequence>
+			<xs:element type="bbps:ParamConfig" name="params" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:AmountOption" name="amountOptions" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<!-- Prepaid Recharge -->
+	<xs:complexType name="BillerPlanResponseParams">
+		<xs:sequence>
+			<xs:element type="bbps:ParamConfig" name="params" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:AmountOption" name="amountOptions" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>  
+	
+	
+	<!-- BBPSREQ-15-Biller MDM customer parameter changes - starts -->
+	<xs:complexType name="CustomerParamGroups">
+		<xs:sequence>
+			<xs:element type="bbps:Group" name="group" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="Group">
+		<xs:sequence>
+			<xs:element type="xs:string" name="param" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:Group" name="group" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="name" use="required" />
+		<xs:attribute type="xs:string" name="input" use="optional" />
+	</xs:complexType>
+	<!-- BBPSREQ-15-Biller MDM customer parameter changes - ends -->
+	
+	<xs:complexType name="AmountOption">
+		<xs:sequence>
+			<xs:element type="xs:string" name="amountBreakupSet" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InterchangeFeeConf">
+		<xs:sequence>
+			<xs:element name="mti" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="paymentMode" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="paymentChannel" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="responseCode" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="fees" type="xs:string"  minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="defaultFee" type="xs:boolean" />
+			<xs:element name="effctvFrom" type="xs:string" minOccurs="0" />
+			<xs:element name="effctvTo" type="xs:string" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InterchangeFee">
+		<xs:sequence>
+			<xs:element name="feeCode" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="feeDesc" type="xs:string"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="feeDirection" type="bbps:InterchangeFeeDirection" 	minOccurs="1" maxOccurs="1"/>
+			<xs:element name="interchangeFeeDetails" type="bbps:InterchangeFeeDetailsType" 	minOccurs="1" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="InterchangeFeeDetailsType">
+		<xs:sequence>
+			<xs:element name="tranAmtRangeMax" type="xs:long" />
+			<xs:element name="tranAmtRangeMin" type="xs:long" />
+			<xs:element name="percentFee" type="xs:decimal"  minOccurs="1" maxOccurs="1"/>
+			<xs:element name="flatFee" type="xs:decimal"  minOccurs="1"  maxOccurs="1"/>
+			<xs:element name="effctvFrom" type="xs:string"  minOccurs="1"  maxOccurs="1"/>
+			<xs:element name="effctvTo" type="xs:string"  minOccurs="1"  maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SearchResult">
+		<xs:sequence>
+			<xs:element type="xs:string" name="result" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="InterchangeFeeDirection">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="B2C" />
+			<xs:enumeration value="C2B" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="FetchRequirement">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MANDATORY" />
+			<xs:enumeration value="OPTIONAL" />
+			<xs:enumeration value="NOT_SUPPORTED" />
+		</xs:restriction>
+	</xs:simpleType>
+<xs:simpleType name="AuthRequirement">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MANDATORY" />
+			<xs:enumeration value="NOT_SUPPORTED" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!-- Plan MDM Requirement changes - starts -->
+	<xs:simpleType name="PlanMDMRequirement">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MANDATORY" />
+			<xs:enumeration value="OPTIONAL" />
+			<xs:enumeration value="CONDITIONAL" />
+			<xs:enumeration value="NOT_SUPPORTED" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- Plan MDM Requirement changes - ends -->
+
+	<!-- All Changes Added as a enum by SAYON (17/03/2023)  -->
+	<xs:simpleType name="UpmsBillerType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SINGLE" />
+			<xs:enumeration value="MULTIPLE" />
+			<xs:enumeration value="SPECIAL" />
+			<xs:enumeration value="NOT_SUPPORTED"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="SelectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SINGLE" />
+			<xs:enumeration value="MULTIPLE" />
+			<xs:enumeration value="ALL" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="MandateRequirement">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MANDATORY" />
+			<xs:enumeration value="OPTIONAL" />
+			<xs:enumeration value="NOT_SUPPORTED" />
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- BillarMdm changes Ends  -->
+	
+</xs:schema>

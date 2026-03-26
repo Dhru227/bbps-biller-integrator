@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bbps="http://bbps.org/schema"
+           targetNamespace="http://bbps.org/schema"
+           elementFormDefault="unqualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="BBPS-Common.xsd"/>
+
+    <xs:element name="TxnStatusComplainRequest" type="bbps:TxnStatusComplainRequest">
+        <xs:annotation>
+            <xs:documentation>BBPS API request</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+
+    <xs:complexType name="TxnStatusComplainRequest">
+        <xs:sequence>
+            <xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="bbps:TxnStatusComplainReq" name="TxnStatusComplainReq" minOccurs="1" maxOccurs="1"/>
+            <xs:element type="bbps:TxnSearchDateCriteria" name="TxnSearchDateCriteria" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TxnStatusComplainReq">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="msgId" use="required"/>
+                <xs:attribute type="xs:string" name="complaintId" use="optional"/>
+                <xs:attribute type="xs:string" name="servReason" use="optional"/>
+                <xs:attribute type="xs:string" name="participationType" use="optional"/>
+                <xs:attribute type="xs:string" name="agentId" use="optional"/>
+                <xs:attribute type="xs:string" name="billerId" use="optional"/>
+                <xs:attribute type="xs:string" name="mobile" use="optional"/>
+                <xs:attribute type="xs:string" name="txnReferenceId" use="optional"/>
+                <xs:attribute type="xs:string" name="ticketId" use="optional"/>
+                <xs:attribute type="xs:string" name="category" use="optional"/>
+                <xs:attribute type="xs:string" name="disposition" use="optional"/>
+                <xs:attribute type="xs:string" name="description" use="optional"/>
+                <xs:attribute type="xs:string" name="complaintType" use="optional"/>
+                <!-- Start :: SBI reqi-Notification through API by Sravan Manne -->
+                <xs:attribute type="xs:string" name="complaintStatus" use="optional"/>
+                <xs:attribute type="xs:string" name="assigned" use="optional"/>
+                <xs:attribute type="xs:string" name="superLevelEsc" use="optional"/>
+                <xs:attribute type="xs:string" name="estimatedTAT" use="optional"/>
+                <xs:attribute type="xs:string" name="reopenComplaint" use="optional"/>
+                <!-- End :: SBI reqi-Notification through API by Sravan Manne -->
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="TxnSearchDateCriteria">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="fromDate" use="required"/>
+                <xs:attribute type="xs:string" name="toDate" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+</xs:schema>

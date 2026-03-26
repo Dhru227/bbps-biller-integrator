@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+	 	<xs:include schemaLocation="BBPS-Common.xsd" />
+	<xs:element name="TxnStatusResponse" type="bbps:TxnStatusResponse">
+		<xs:annotation>
+			<xs:documentation>402 API Response</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="TxnStatusResponse">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:reasonType" name="Reason" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billDetailsType" name="BillDetails" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billerResponseType" name="BillerResponse" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element type="bbps:billerPlanResponseType" name="BillerPlanResponse" minOccurs="0" maxOccurs="1" /> <!-- Prepaid Recharge-->
+			<xs:element type="bbps:additionalInfoType" name="AdditionalInfo" minOccurs="0" maxOccurs="1" /> <!-- BBPSREQ-25 -->
+			<xs:element type="bbps:upmsType" name="Upms" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>	
+	
+</xs:schema>
+	

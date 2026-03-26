@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+	xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd"></xs:include>
+	<xs:element name="BillValidationRequest" type="bbps:BillValidationRequestType">
+		<xs:annotation>
+			<xs:documentation>Bill Validation Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="BillValidationRequestType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:agentType" name="Agent" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billDetailsType" name="BillDetails" minOccurs="1" maxOccurs="1" />
+				<xs:element type="bbps:amt" name="Amount" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:upmsType" name="Upms" minOccurs="0" maxOccurs="1" /> <!-- change   for   UPMS -->
+		</xs:sequence>
+	</xs:complexType> 
+</xs:schema>

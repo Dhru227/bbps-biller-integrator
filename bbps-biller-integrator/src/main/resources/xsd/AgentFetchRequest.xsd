@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  
+	xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ 	elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd"></xs:include>
+	<xs:include schemaLocation="BillerFetchRequest.xsd"></xs:include>
+	<xs:element name="AgentFetchRequest" type="bbps:AgentFetchRequestType">
+		<xs:annotation>
+			<xs:documentation>Agent Fetch Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="AgentFetchRequestType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1"/>
+			<xs:element type="bbps:searchTypeForAgent" name="Search" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:searchByTime" name="SearchByTime" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType> 
+	<xs:complexType name="searchTypeForAgent">
+		<xs:sequence>
+			<xs:element type="xs:string" name="agentId" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType> 
+</xs:schema>

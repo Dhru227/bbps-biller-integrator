@@ -1,0 +1,223 @@
+{
+  "info": {
+    "name": "BBPS Simulator + Integrator Flow",
+    "_postman_id": "3f8f6695-bd78-44c6-a94a-5efd32dfc2b8",
+    "description": "Collection to test BBPS simulator forwarding and integrator callbacks using XML payloads.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1) Send BillFetchRequest to Simulator",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillFetchRequest xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:00:00+05:30\" origInst=\"SIM\" refId=\"REF-FETCH-001\"/>\n    <Txn ts=\"2026-03-26T12:00:00+05:30\" msgId=\"MSG-FETCH-001\" txnReferenceId=\"TXN-FETCH-001\"/>\n    <Customer mobile=\"9999999999\"/>\n    <Agent id=\"AGENT1\">\n        <Device>\n            <Tag name=\"MOBILE\" value=\"9999999999\"/>\n        </Device>\n    </Agent>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n</BillFetchRequest>"
+        },
+        "url": {
+          "raw": "{{simulatorBaseUrl}}/bbps/BillFetchRequest/1.0/urn:referenceId:REF-FETCH-001",
+          "host": [
+            "{{simulatorBaseUrl}}"
+          ],
+          "path": [
+            "bbps",
+            "BillFetchRequest",
+            "1.0",
+            "urn:referenceId:REF-FETCH-001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2) Send BillPaymentRequest to Simulator",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillPaymentRequest xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:05:00+05:30\" origInst=\"SIM\" refId=\"REF-PAY-001\"/>\n    <Txn ts=\"2026-03-26T12:05:00+05:30\" msgId=\"MSG-PAY-001\" txnReferenceId=\"TXN-PAY-001\"/>\n    <Customer mobile=\"9999999999\"/>\n    <Agent id=\"AGENT1\">\n        <Device>\n            <Tag name=\"MOBILE\" value=\"9999999999\"/>\n        </Device>\n    </Agent>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n    <BillerCategory category=\"ELECTRICITY\"/>\n    <PaymentMethod paymentMode=\"UPI\"/>\n    <Amount>\n        <Amt amount=\"100.00\"/>\n        <AmountBreakUp/>\n        <SplitPayAmount>0</SplitPayAmount>\n    </Amount>\n    <PaymentInformation>\n        <Tag name=\"paymentRefId\" value=\"PREF-001\"/>\n    </PaymentInformation>\n</BillPaymentRequest>"
+        },
+        "url": {
+          "raw": "{{simulatorBaseUrl}}/bbps/BillPaymentRequest/1.0/urn:referenceId:REF-PAY-001",
+          "host": [
+            "{{simulatorBaseUrl}}"
+          ],
+          "path": [
+            "bbps",
+            "BillPaymentRequest",
+            "1.0",
+            "urn:referenceId:REF-PAY-001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3) Direct BillFetchRequest to Integrator (Optional)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillFetchRequest xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:10:00+05:30\" origInst=\"SIM\" refId=\"REF-FETCH-DIRECT-001\"/>\n    <Txn ts=\"2026-03-26T12:10:00+05:30\" msgId=\"MSG-FETCH-DIRECT-001\" txnReferenceId=\"TXN-FETCH-DIRECT-001\"/>\n    <Customer mobile=\"9999999999\"/>\n    <Agent id=\"AGENT1\">\n        <Device>\n            <Tag name=\"MOBILE\" value=\"9999999999\"/>\n        </Device>\n    </Agent>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n</BillFetchRequest>"
+        },
+        "url": {
+          "raw": "{{integratorBaseUrl}}/BillFetchRequest/1.0/urn:referenceId:REF-FETCH-DIRECT-001",
+          "host": [
+            "{{integratorBaseUrl}}"
+          ],
+          "path": [
+            "BillFetchRequest",
+            "1.0",
+            "urn:referenceId:REF-FETCH-DIRECT-001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4) Direct BillPaymentRequest to Integrator (Optional)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillPaymentRequest xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:15:00+05:30\" origInst=\"SIM\" refId=\"REF-PAY-DIRECT-001\"/>\n    <Txn ts=\"2026-03-26T12:15:00+05:30\" msgId=\"MSG-PAY-DIRECT-001\" txnReferenceId=\"TXN-PAY-DIRECT-001\"/>\n    <Customer mobile=\"9999999999\"/>\n    <Agent id=\"AGENT1\">\n        <Device>\n            <Tag name=\"MOBILE\" value=\"9999999999\"/>\n        </Device>\n    </Agent>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n    <BillerCategory category=\"ELECTRICITY\"/>\n    <PaymentMethod paymentMode=\"UPI\"/>\n    <Amount>\n        <Amt amount=\"100.00\"/>\n        <AmountBreakUp/>\n        <SplitPayAmount>0</SplitPayAmount>\n    </Amount>\n    <PaymentInformation>\n        <Tag name=\"paymentRefId\" value=\"PREF-DIRECT-001\"/>\n    </PaymentInformation>\n</BillPaymentRequest>"
+        },
+        "url": {
+          "raw": "{{integratorBaseUrl}}/BillPaymentRequest/1.0/urn:referenceId:REF-PAY-DIRECT-001",
+          "host": [
+            "{{integratorBaseUrl}}"
+          ],
+          "path": [
+            "BillPaymentRequest",
+            "1.0",
+            "urn:referenceId:REF-PAY-DIRECT-001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5) Simulate Integrator Callback: BillFetchResponse ACK Endpoint",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillFetchResponse xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:20:00+05:30\" origInst=\"BILLER\" refId=\"REF-FETCH-CB-001\"/>\n    <Reason responseCode=\"000\" approvalRefNum=\"AB123456\" responseReason=\"Successful\"/>\n    <Txn ts=\"2026-03-26T12:20:00+05:30\" msgId=\"MSG-CB-FETCH-001\" txnReferenceId=\"TXN-CB-FETCH-001\"/>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n    <BillerResponse amount=\"100.00\" dueDate=\"2026-03-31\" billDate=\"2026-03-01\"/>\n</BillFetchResponse>"
+        },
+        "url": {
+          "raw": "{{simulatorBaseUrl}}/bbps/BillFetchResponse/1.0/urn:referenceId:REF-FETCH-CB-001",
+          "host": [
+            "{{simulatorBaseUrl}}"
+          ],
+          "path": [
+            "bbps",
+            "BillFetchResponse",
+            "1.0",
+            "urn:referenceId:REF-FETCH-CB-001"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6) Simulate Integrator Callback: BillPaymentResponse ACK Endpoint",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/xml",
+            "type": "text"
+          },
+          {
+            "key": "Accept",
+            "value": "application/xml",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<BillPaymentResponse xmlns=\"http://bbps.org/schema\">\n    <Head ver=\"1.0\" ts=\"2026-03-26T12:25:00+05:30\" origInst=\"BILLER\" refId=\"REF-PAY-CB-001\"/>\n    <Reason responseCode=\"000\" approvalRefNum=\"BP123456\" responseReason=\"Successful\"/>\n    <Txn ts=\"2026-03-26T12:25:00+05:30\" msgId=\"MSG-CB-PAY-001\" txnReferenceId=\"TXN-CB-PAY-001\"/>\n    <BillDetails>\n        <Biller id=\"BILLER1\"/>\n        <CustomerParams>\n            <Tag name=\"ACCOUNTNUMBER\" value=\"ACC123\"/>\n        </CustomerParams>\n    </BillDetails>\n    <BillerResponse amount=\"100.00\" dueDate=\"2026-03-31\" billDate=\"2026-03-01\"/>\n</BillPaymentResponse>"
+        },
+        "url": {
+          "raw": "{{simulatorBaseUrl}}/bbps/BillPaymentResponse/1.0/urn:referenceId:REF-PAY-CB-001",
+          "host": [
+            "{{simulatorBaseUrl}}"
+          ],
+          "path": [
+            "bbps",
+            "BillPaymentResponse",
+            "1.0",
+            "urn:referenceId:REF-PAY-CB-001"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "simulatorBaseUrl",
+      "value": "http://localhost:8112"
+    },
+    {
+      "key": "integratorBaseUrl",
+      "value": "http://localhost:8111"
+    }
+  ]
+}
+

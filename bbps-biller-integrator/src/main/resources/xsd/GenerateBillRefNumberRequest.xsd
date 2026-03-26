@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bbps="http://bbps.org/schema"  targetNamespace="http://bbps.org/schema" 
+ elementFormDefault="unqualified" attributeFormDefault="unqualified">
+
+	<xs:include schemaLocation="BBPS-Common.xsd" />
+
+	<xs:element name="GenerateBillRefNumberRequest" type="bbps:GenerateBillRefNumberRequestType">
+		<xs:annotation>
+			<xs:documentation>Generate BillRefNumber Request</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="GenerateBillRefNumberRequestType">
+		<xs:sequence>
+			<xs:element type="bbps:headType" name="Head" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:analyticsType" name="Analytics" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:txnType" name="Txn" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:customerDtlsType" name="Customer" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:agentType" name="Agent" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:billDetailsType" name="BillDetails" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:planDetailsType" name="PlanDetails" minOccurs="0" maxOccurs="1" /> <!-- Prepaid Recharge -->
+			<xs:element type="bbps:billerResponseType" name="BillerResponse" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element type="bbps:additionalInfoType" name="AdditionalInfo" minOccurs="0" maxOccurs="1" />
+			<xs:element type="bbps:pmtMtdType" name="PaymentMethod" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:amountType" name="Amount" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:pymntInfType" name="PaymentInformation" minOccurs="1" maxOccurs="1" />
+			<xs:element type="bbps:upmsType" name="Upms" minOccurs="0" maxOccurs="1" /> <!-- change   for   UPMS -->		
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
