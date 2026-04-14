@@ -13,6 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import bharat.connect.biller.cache.BillerRoutingCache;
+import org.springframework.web.client.RestTemplate;
+import java.util.Map;
+import java.util.HashMap;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -23,6 +30,11 @@ public class BillFetchServiceImpl implements BillFetchService {
 
     @Autowired
     private BillFetchDao billFetchDao;
+
+    @Autowired
+    private BillerRoutingCache routingCache;
+
+    private final RestTemplate jsonRestTemplate = new RestTemplate();
 
     @Value("${ou.id}")
     private String ouId;
@@ -53,10 +65,42 @@ public class BillFetchServiceImpl implements BillFetchService {
     public void processBillFetchAsync(BillFetchRequest fetchRequest, String referenceId) {
         System.out.println("Processing Bill Fetch");
         if (fetchRequest == null || fetchRequest.getBillDetails() == null || fetchRequest.getBillDetails().getCustomerParams() == null) return;
-        BillDetails bd = billFetchDao.findLatestUnpaidBillByCustomerParams(fetchRequest.getBillDetails().getCustomerParams());
-        if (bd == null) {
-            System.out.println("No Bills found");
-            return;
+        
+        String billerId = fetchRequest.getHead() != null ? fetchRequest.getHead().getOrigInst() : null;
+        String mockFetchUrl = billerId != null ? routingCache.getFetchUrl(billerId) : null;
+        
+        BillDetails bd = new BillDetails();
+
+        if (mockFetchUrl != null) {
+            System.out.println("=== Routing Fetch dynamically to Mock Stub: " + mockFetchUrl + " ===");
+            try {
+                // Convert XML Tags to JSON Map for the Mock Biller
+                Map<String, String> paramMap = new HashMap<>();
+                fetchRequest.getBillDetails().getCustomerParams().getTags()
+                        .forEach(tag -> paramMap.put(tag.getName(), tag.getValue()));
+
+                // Fetch dynamically from our Phase 4 controller
+                Map<String, Object> mockRes = jsonRestTemplate.postForObject(mockFetchUrl, paramMap, Map.class);
+                
+                if (mockRes != null && "SUCCESS".equals(mockRes.get("status"))) {
+                    bd.setBillAmount(new BigDecimal(mockRes.get("billAmount").toString()));
+                    bd.setDueDate(LocalDate.parse(mockRes.get("dueDate").toString()));
+                    bd.setBillDate(LocalDate.now()); 
+                } else {
+                    System.out.println("Mock stub returned failure or null.");
+                    return;
+                }
+            } catch (Exception e) {
+                System.out.println("Failed to fetch from Mock Stub: " + e.getMessage());
+                return;
+            }
+        } else {
+            System.out.println("=== Biller not in cache. Falling back to DB lookup ===");
+            bd = billFetchDao.findLatestUnpaidBillByCustomerParams(fetchRequest.getBillDetails().getCustomerParams());
+            if (bd == null) {
+                System.out.println("No Bills found in DB");
+                return;
+            }
         }
 
         try {
