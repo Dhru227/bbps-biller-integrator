@@ -3,3 +3,5 @@
 *_context.md
 generate_*.py
 xsd_to_*.py
+bills-demo.csv
+src/main/resources/application-demo.properties
