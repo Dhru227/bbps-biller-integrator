@@ -22,7 +22,7 @@ public class BillerRegistrationDao {
 
     public void saveRegisteredBiller(String generatedBillerId, BillerRegistrationRequest request,
                                      String mockFetchUrl, String mockPaymentUrl) {
-        String sql = "INSERT INTO billerdb.registered_billers " +
+        String sql = "INSERT INTO registered_billers " +
                 "(biller_id, biller_ref_id, entity_name, bill_category, customer_params, mock_fetch_url, mock_payment_url) " +
                 "VALUES (:billerId, :refId, :name, :category, :params, :fetchUrl, :paymentUrl)";
 

@@ -47,3 +47,15 @@ CREATE TABLE if not exists payment_transactions (
     payer_info JSONB,
     paid_at TIMESTAMP DEFAULT NOW()
 );
+CREATE TABLE IF NOT EXISTS registered_billers (
+    id SERIAL PRIMARY KEY,
+    biller_id VARCHAR(50) NOT NULL,
+    biller_ref_id VARCHAR(50),
+    entity_name VARCHAR(255),
+    bill_category VARCHAR(100),
+    customer_params JSONB,
+    mock_fetch_url VARCHAR(500),
+    mock_payment_url VARCHAR(500),
+    is_active BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT NOW()
+);

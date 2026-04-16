@@ -19,7 +19,7 @@ public class BillerRoutingCache {
     @PostConstruct
     public void init() {
         // Warm the cache on startup so we don't hit the DB for every fetch request
-        jdbcTemplate.query("SELECT biller_id, mock_fetch_url FROM billerdb.registered_billers", rs -> {
+        jdbcTemplate.query("SELECT biller_id, mock_fetch_url FROM registered_billers", rs -> {
             fetchRouteCache.put(rs.getString("biller_id"), rs.getString("mock_fetch_url"));
         });
         System.out.println("=== BillerRoutingCache Warmed Up: " + fetchRouteCache.size() + " routes ===");
