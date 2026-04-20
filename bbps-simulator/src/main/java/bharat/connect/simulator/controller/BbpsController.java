@@ -62,8 +62,8 @@ public class BbpsController {
         return buildAckXml(referenceId, "PAYMENT_RESPONSE", "000");
     }
 
-    @GetMapping(value = "/bbps/ReqHbt/1.0/urn:referenceId:{referenceId}", produces = MediaType.APPLICATION_XML_VALUE)
-    public String heartbeat(@PathVariable("referenceId") String referenceId) {
+    @PostMapping(value = "/bbps/ReqHbt/1.0/urn:referenceId:{referenceId}", consumes = MediaType.APPLICATION_XML_VALUE, produces = MediaType.APPLICATION_XML_VALUE)
+    public String heartbeat(@RequestBody String requestXml, @PathVariable("referenceId") String referenceId) {
         return "<RespHbt><Head refId=\"" + referenceId + "\"/></RespHbt>";
     }
 
