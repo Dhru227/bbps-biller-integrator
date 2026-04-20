@@ -1,5 +1,5 @@
 
-CREATE TABLE if not exists bbps_master (
+CREATE TABLE if not exists billerdb.bbps_master (
     biller_id SERIAL PRIMARY KEY,
     biller_name VARCHAR(255) NOT NULL,
     category VARCHAR(100) NOT NULL,  -- electricity, water, gas, etc.
@@ -10,7 +10,7 @@ CREATE TABLE if not exists bbps_master (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE if not exists customer_params_master (
+CREATE TABLE if not exists billerdb.customer_params_master (
     param_id SERIAL PRIMARY KEY,
     param_name VARCHAR(100) NOT NULL,
     param_type VARCHAR(50) NULL,
@@ -20,7 +20,7 @@ CREATE TABLE if not exists customer_params_master (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE if not exists bill_details (
+CREATE TABLE if not exists billerdb.bill_details (
     bill_id SERIAL PRIMARY KEY,
     customer_param_name VARCHAR(100) NOT NULL,
     customer_param_type VARCHAR(50) NULL,
@@ -36,9 +36,9 @@ CREATE TABLE if not exists bill_details (
     updated_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE if not exists payment_transactions (
+CREATE TABLE if not exists billerdb.payment_transactions (
     txn_id SERIAL PRIMARY KEY,
-    bill_id INT REFERENCES bill_details(bill_id),
+    bill_id INT REFERENCES billerdb.bill_details(bill_id),
     bbps_txn_ref VARCHAR(100) UNIQUE NOT NULL,
     amount_paid NUMERIC(12,2) NOT NULL,
     payment_mode VARCHAR(50),
@@ -47,7 +47,8 @@ CREATE TABLE if not exists payment_transactions (
     payer_info JSONB,
     paid_at TIMESTAMP DEFAULT NOW()
 );
-CREATE TABLE IF NOT EXISTS registered_billers (
+
+CREATE TABLE IF NOT EXISTS billerdb.registered_billers (
     id SERIAL PRIMARY KEY,
     biller_id VARCHAR(50) NOT NULL,
     biller_ref_id VARCHAR(50),
