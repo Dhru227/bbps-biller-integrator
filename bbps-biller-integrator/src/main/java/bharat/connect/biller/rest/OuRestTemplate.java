@@ -19,16 +19,14 @@ public class OuRestTemplate {
     // private static int MAX_RETRY_COUNT = 3;
     private static int MAX_RETRY_COUNT = 0;
 
-    // POC MODE: OuRestTemplateInterceptor disabled.
-    // Re-enable interceptor wiring before connecting to NPCI UAT/PROD.
-    // Requires BBPS_HOME env var and valid ousigner.p12 certificate.
     private OuRestTemplate() {
         restTemplate = new RestTemplate(clientHttpRequestFactory());
-        // --- POC BYPASS: Disable mTLS and payload signing ---
-        // ClientHttpRequestInterceptor ri = new OuRestTemplateInterceptor();
-        // List<ClientHttpRequestInterceptor> ris = new ArrayList<>(1);
-        // ris.add(ri);
-        // restTemplate.setInterceptors(ris);
+        if (Boolean.parseBoolean(System.getProperty("bbps.security.enabled", "true"))) {
+            ClientHttpRequestInterceptor ri = new OuRestTemplateInterceptor();
+            List<ClientHttpRequestInterceptor> ris = new ArrayList<>(1);
+            ris.add(ri);
+            restTemplate.setInterceptors(ris);
+        }
     }
 
     private ClientHttpRequestFactory clientHttpRequestFactory() {
